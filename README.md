@@ -1,131 +1,96 @@
-# FÁNCY — сучасний сайт дому краси
+# FÁNCY
 
-Повноцінний багатосторінковий сайт для **FÁNCY — дім краси** у Рівному. Проєкт створено на актуальному стеку Next.js / Node.js із TypeScript, серверною формою запису, адаптивним преміальним дизайном, анімаціями, SEO та PWA-метаданими.
+> A premium beauty-house website for Rivne, built as a polished Next.js experience with booking flow, service catalog, gallery, SEO, and production-ready deployment settings.
 
-## Що реалізовано
+## Quick View
 
-- головна сторінка з преміальним hero-блоком, напрямами послуг, вибраними цінами, галереєю, перевагами, FAQ і контактним CTA;
-- повний інтерактивний прайс із 9 категоріями, пошуком і фільтрацією;
-- сторінки «Роботи», «Про FÁNCY», «Контакти», «Онлайн-запис» і «Конфіденційність»;
-- кастомне desktop mega-menu та мобільне off-canvas меню;
-- світла й темна теми з автоматичним визначенням системних налаштувань;
-- анімації появи, hover-ефекти, lightbox галереї та плавний booking drawer;
-- адаптивність для телефону, планшета, ноутбука та великих екранів;
-- SEO metadata, Open Graph, Twitter cards, sitemap, robots.txt і schema.org `BeautySalon`;
-- вебманіфест для PWA та базові security headers;
-- локальні оптимізовані зображення без залежності від зовнішнього image CDN;
-- оригінальний PDF-прайс доступний для завантаження зі сторінки послуг.
+| Item | Value |
+| --- | --- |
+| Project | `FÁNCY` |
+| Product | Beauty salon website |
+| City | Rivne, Ukraine |
+| Main developer | `Ke1fosao` |
+| Designer | `Ke1fosao` |
+| Contact email | `dima.kovtunovych@gmail.com` |
+| Live site | `fancy_beauty` on Vercel, pending deployment |
 
-## Технології
+## What This Site Includes
 
-- **Next.js 16.2.10** — App Router і Node.js runtime;
-- **React 19.2.7**;
-- **TypeScript 5.8.3**;
-- **Motion** — інтерфейсні анімації;
-- **Lucide React** — іконки;
-- **Zod** — серверна валідація форми;
-- CSS без UI-фреймворку — дизайн та компоненти повністю кастомні.
+- homepage with hero, service highlights, gallery preview, FAQ, and contact strip
+- full services catalog with searchable pricing structure
+- booking flow with API route, validation, honeypot protection, and Telegram delivery hook
+- dedicated pages for `About`, `Contacts`, `Gallery`, `Booking`, and `Privacy`
+- SEO metadata, Open Graph, Twitter cards, sitemap, robots, manifest, and structured data
+- responsive premium UI with dark/light theme support
 
-## Запуск локально
+## Stack
 
-Потрібен **Node.js 20.9 або новіший**.
+- Next.js 16
+- React 19
+- TypeScript
+- Motion
+- Lucide React
+- Zod
+
+## Project Layout
+
+```text
+src/
+  app/          routes, metadata, API
+  components/   reusable UI blocks
+  data/         content and price lists
+public/
+  images/       local visual assets
+  downloads/    PDF price list
+docs/           credits and research notes
+```
+
+## Local Run
 
 ```bash
 npm install
-cp .env.example .env.local
 npm run dev
 ```
 
-Відкрийте `http://localhost:3000`.
+Open:
 
-### Перевірка перед запуском
+- http://127.0.0.1:3000
+
+## Validate Before Deploy
 
 ```bash
 npm run typecheck
 npm run lint
 npm run build
-npm start
 ```
 
-## Налаштування заявок
+## Deploy to Vercel
 
-Форма надсилає `POST /api/booking` і має:
+1. Push the repository to GitHub.
+2. Import the repo into Vercel.
+3. Set the environment variables if booking delivery is enabled.
+4. Deploy.
 
-- серверну валідацію Zod;
-- honeypot-поле проти простих ботів;
-- обмеження частоти — до 5 запитів за 10 хвилин з однієї IP-адреси;
-- екранування даних перед надсиланням у Telegram;
-- таймаут зовнішніх інтеграцій;
-- резервний локальний JSONL-запис під час локальної розробки.
+### Node Version
 
-Заповніть потрібні змінні у `.env.local`:
+This repository is pinned to Node `22.x` in `package.json` so Vercel does not auto-advance across future major Node releases.
 
-```env
-NEXT_PUBLIC_SITE_URL=https://your-domain.ua
+## Main Author Block
 
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_CHAT_ID=
+- Developer and designer: `Ke1fosao`
+- Email: `dima.kovtunovych@gmail.com`
+- Repository: `Ke1fosao/FANCY`
+- Live site: `fancy_beauty` on Vercel, pending first production deployment
 
-BOOKING_WEBHOOK_URL=
-```
+## Content Editing
 
-`TELEGRAM_BOT_TOKEN` і `TELEGRAM_CHAT_ID` надсилають заявку адміністратору в Telegram. `BOOKING_WEBHOOK_URL` можна підключити до CRM, n8n, Make, Zapier або власного API.
+- site info, contact data, and links: `src/data/site.ts`
+- services and pricing: `src/data/services.ts`
+- gallery items: `src/data/gallery.ts`
+- homepage layout: `src/app/page.tsx`
+- global styling: `src/app/globals.css`
 
-> На serverless-хостингах локальна файлова система може бути тимчасовою або read-only. Для продакшену обов’язково налаштуйте Telegram, webhook або постійну базу даних.
+## Notes
 
-## Де змінювати контент
-
-- контакти, адреса, графік і посилання — `src/data/site.ts`;
-- категорії, послуги та ціни — `src/data/services.ts`;
-- елементи галереї — `src/data/gallery.ts`;
-- FAQ — `src/components/Faq.tsx`;
-- глобальні стилі — `src/app/globals.css`;
-- логіка форми — `src/app/api/booking/route.ts`;
-- локальні фото — `public/images/`.
-
-## Джерело прайсу
-
-Ціни перенесено з наданого файлу `Price List Fáncy.pdf`, копія якого знаходиться у `public/downloads/fancy-price-list.pdf`.
-
-У джерелі на сторінці 2 двічі вказано формулювання «Миття голови + накрутка браш 1–2 довжина» з різними цінами. У сайті другий рядок інтерпретовано як **3–4 довжина — 700 грн**, оскільки це відповідає структурі сусідніх позицій. Перед публікацією це потрібно підтвердити у FÁNCY.
-
-## Що обов’язково перевірити перед публікацією
-
-1. Замінити демонстраційні фотографії Unsplash на реальні роботи та інтер’єр FÁNCY, отримавши дозвіл на використання.
-2. Підтвердити актуальність усіх цін, графіка й контактів.
-3. Установити реальний `NEXT_PUBLIC_SITE_URL`.
-4. Налаштувати канал доставки заявок і виконати тестовий запис.
-5. Перевірити текст політики конфіденційності відповідно до фактичної обробки даних.
-6. Додати справжню іконку/логотип, якщо у салону є готовий брендбук.
-
-## Деплой
-
-### Vercel
-
-1. Завантажте проєкт у GitHub/GitLab.
-2. Імпортуйте репозиторій у Vercel.
-3. Додайте змінні середовища.
-4. Виконайте deploy.
-
-### Звичайний Node.js сервер
-
-```bash
-npm ci
-npm run build
-npm start
-```
-
-За замовчуванням сервер працює на порту `3000`. Для домену використайте Nginx або Caddy як reverse proxy та підключіть HTTPS.
-
-## Структура
-
-```text
-src/
-  app/                 маршрути, metadata, API
-  components/          UI-компоненти
-  data/                контент і прайс
-public/
-  images/              локальні оптимізовані фото
-  downloads/           PDF-прайс
-docs/                   нотатки дослідження та кредити
-```
+- The current project is ready for Vercel deployment.
+- If you add real social links or phone numbers for the author block, update this README section as well.
